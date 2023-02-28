@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRef } from 'react';
+import { Link } from 'react-router-dom'
 
 export const Links = () => {
 
@@ -13,20 +13,17 @@ export const Links = () => {
       <table class="table table-bordered  table-transparent text-light ">
         <thead>
           <tr>
-            <th scope="col">links</th>
-            <th scope="col">click to copy</th>
+            <th scope="col">long links</th>
+            <th scope="col">short link</th>
+            <th scope="col">clicks</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row"><input type="text" value={'link'} id="1" /></th>
-            <td style={{ cursor: 'pointer' }}>Copy</td>
+            <td>long url</td>
+            <td> <Link to={'#'}>short link</Link></td>
+            <td>1</td>
           </tr>
-          <tr>
-            <th scope="row" className='w-75'>2</th>
-            <td style={{ cursor: 'pointer' }}>Copy</td>
-          </tr>
-       
 
         </tbody>
       </table>

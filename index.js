@@ -22,7 +22,7 @@ app.post('/create_short_url', (req, res) => {
     if (err) {
       res.status(500).send("sommething is wrong");
     }else{
-      res.send("done").status(200)
+      res.send({url: unique_id}).status(200)
     }
    })
 })

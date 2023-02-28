@@ -1,13 +1,64 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export const Form = () => {
 
-
+  let navigate = useNavigate();
   const [userDetail, setUserDetail] = useState({})
 
-  const handleLogin = (e) => {
-     e.preventDefault()
-     setUserDetail(...userDetail,{ [e.target.name] : e.target.value })
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`http://localhost:5000/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'content-Type': 'application/json'
+      },
+      body: JSON.stringify({email: userDetail.email, password: userDetail.password})
+    });
+
+    let json = await response.json();
+
+    if(json.success){
+      localStorage.setItem('id', json.id)
+
+      navigate('/')
+      alert('log in successfull')
+
+    }else {
+      navigate('/form')
+      alert('try again somthing is wrong')
+    } 
+  }
+
+
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    if(userDetail.password === userDetail.cpassword){
+      const response = await fetch(`http://localhost:5000/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: userDetail.name, email: userDetail.email, password: userDetail.password})
+      });
+  
+      let json = await response.json();
+  
+      if(json.success){
+        localStorage.setItem('id', json.id)
+  
+        navigate('/')
+        alert('log in successfull')
+  
+      }else {
+        navigate('/form')
+        alert('try again somthing is wrong')
+      } 
+    }else{
+      alert('password does not match')
+    }
   }
 
   console.log(userDetail);
@@ -101,27 +152,28 @@ export const Form = () => {
 
             {/* <!-- Name input --> */}
             <div className="form-outline mb-3">
-              <input type="text" id="registerName" className="form-control" />
+              <input type="text" name='fname' id="registerName" className="form-control" />
               <label className="form-label" htmlFor="registerName">Name</label>
             </div>
 
             {/* <!-- Email input --> */}
             <div className="form-outline mb-3">
-              <input type="email" id="registerEmail" className="form-control" />
+              <input type="email" name='email' id="registerEmail" className="form-control" />
               <label className="form-label" htmlFor="registerEmail">Email</label>
             </div>
 
             {/* <!-- Password input --> */}
             <div className="form-outline mb-3">
-              <input type="password" id="registerPassword" className="form-control" />
+              <input type="password" name='password' id="registerPassword" className="form-control" />
               <label className="form-label" htmlFor="registerPassword">Password</label>
             </div>
 
             {/* <!-- Repeat Password input --> */}
             <div className="form-outline mb-3">
-              <input type="password" id="registerRepeatPassword" className="form-control" />
+              <input type="password" name='cpassword' id="registerRepeatPassword" className="form-control" />
               <label className="form-label" htmlFor="registerRepeatPassword">Repeat password</label>
             </div>
+            
 
             {/* <!-- Checkbox --> */}
             <div className="form-check d-flex justify-content-center mb-3">
