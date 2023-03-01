@@ -6,7 +6,7 @@ const Home = () => {
 
   const style1 = {
     height : '500px',
-    'backdrop-filter': 'blur(5px)',
+    backdropFilter: 'blur(5px)',
     boxShadow : '0px 0px 10px -5px #fff'
   }
 

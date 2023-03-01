@@ -1,21 +1,21 @@
 import React ,{ useState } from 'react'
 import LinkContext from './LinkContext'
 
-const LinkState = () => {
+const LinkState = (props) => {
 
-  const host = 'https//:localhost';
+  const host = 'https//:localhost:4000';
   const [links, setLinks] = useState({});
   const [oneUrl, setOneUrl] = useState({});
 
-  const getUrls = async () => {
-    const response = await fetch(`${host}/`)
-  }
+  // const getUrls = async () => {
+  //   const response = await fetch(`${host}/`)
+  // }
 
   const shortUrl = async (id,url) => {
-    const response = await fetch(`${host}/`, {
+    const response = await fetch(`${host}/create_short_url`, {
       method: 'POST',
       headers: { 'content-Type': 'application/json'},
-      body: JSON.stringify({id: id , Url: url})
+      body: JSON.stringify({id: id , url: url})
     })
     const json = response.json();
      setOneUrl(json)
@@ -28,11 +28,11 @@ const LinkState = () => {
 
 
   return (
-    <LinkContext.Provider value={{links, oneUrl, getUrls, shortUrl}}>
+    <LinkContext.Provider value={{links, oneUrl, /* getUrls,*/ shortUrl}}>
        {props.children}
     </LinkContext.Provider>
   )
 }
 
 export default LinkState
-
+ 

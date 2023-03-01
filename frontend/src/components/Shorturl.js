@@ -2,29 +2,30 @@ import React, { useContext, useState } from 'react'
 import LinkContext from '../context/LinkContext'
 import { Link } from 'react-router-dom';
 
-export const Shorturl = () => {
+export const Shorturl = (props) => {
 
   const context = useContext(LinkContext);
   const { ShortUrl, oneUrl } = context
   
   const userId = localStorage.getItem('id')?localStorage.getItem('id'):'0';
 
-  const [url, setUrl] = useState()
+  const [url, setUrl] = useState({})
 
   const webLink = window.location.href
 
   const onChange = (e) => {
     setUrl(e.target.value);
   }
-  const createUrl = () => {
-    ShortUrl(userId,url);
+  const createUrl = (e) => {
+     e.preventDefault();
+    ShortUrl( userId , url);
   }
 
 
 
   return (
     <>
-      <div className='form-outline w-50 m-auto' style={{ 'z-index': '2' }}>
+      <div className='form-outline w-50 m-auto' style={{ zIndex: '2' }}>
         <input type="url" className='form-control text-light' onChange={onChange} name="url" id="typeURL"  value={url} style={{ borderBottom: '1px solid #fff', borderRadius: '0px'  }} />
         <label className='form-label text-light' htmlFor="typeURL">Enter URL</label>
       </div>
