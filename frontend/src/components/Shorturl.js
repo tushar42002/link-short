@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const Shorturl = (props) => {
 
   const context = useContext(LinkContext);
-  const { ShortUrl, oneUrl } = context
+  const { shortUrl, oneUrl } = context
   
   const userId = localStorage.getItem('id')?localStorage.getItem('id'):'0';
 
@@ -18,7 +18,7 @@ export const Shorturl = (props) => {
   }
   const createUrl = (e) => {
      e.preventDefault();
-    ShortUrl( userId , url);
+    shortUrl( userId , url);
   }
 
 

@@ -5,13 +5,13 @@ import cors from 'cors';
 import con from './db.js'
 
 
+const port = 4000
 
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+ app.use(cors());
 
-const port = 4000
 
 app.get('/', (req, res) => {
   res.send(con)
@@ -25,10 +25,10 @@ app.post('/create_short_url', (req, res) => {
    con.query(sql, function(err,result){
     if (err) {
       res.status(500).send("sommething is wrong");
-    }else{
-      res.send({url: unique_id}).status(200)
+    }else{ 
+      res.json({'url': `${unique_id}`}).status(200)
     }
-   })
+   }) 
 })
 
 
